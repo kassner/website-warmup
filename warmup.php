@@ -39,8 +39,10 @@ class Warmup
 
     protected function processUrl($url)
     {
-        echo "Fetching {$url}", PHP_EOL;
+        echo "Fetching {$url} ";
+        $t1 = microtime(true);
         $content = file_get_contents($url);
+        echo sprintf('%.04f', microtime(true) - $t1), PHP_EOL;
         $this->setOk($url);
 
         if (preg_match_all("#http://{$this->root}([a-zA-Z0-9_.\-/?=%]*)#", $content, $matches)) {
